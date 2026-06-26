@@ -9,6 +9,17 @@ footer{
     background-color: #0B1F5B !important;
 }
 
+header{
+    padding: 20px 0;
+    margin: 0;
+}
+
+.navbar{
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 header h1{
     color: white;
     margin: 0;

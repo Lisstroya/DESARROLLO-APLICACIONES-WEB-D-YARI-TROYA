@@ -10,11 +10,11 @@
 
 <body>
 
-<header class="text-center py-4">
+<header class="text-center">
     <h1>Sistema Financiero Digital</h1>
 </header>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
@@ -56,7 +56,7 @@
         Ver Servicios
     </a>
 
-    <a href="#contacto" class="btn btn-outline-primary m-2">
+    <a href="#contacto" class="btn btn-primary m-2">
         Contáctanos
     </a>
  </section>
@@ -106,7 +106,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Cuentas Bancarias</h5>
                     <p class="card-text">
-                        Gestion y seguimiento de movimientos financieros.
+                        Gestión y seguimiento de movimientos financieros.
                     </p>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Banca Digital</h5>
                     <p class="card-text">
-                        Accede a tu informacion financiera en tiempo real.
+                        Accede a tu información financiera en tiempo real.
                     </p>
                 </div>
             </div>
@@ -183,26 +183,30 @@
 
         <div class="col-md-6">
 
-            <form>
+            <form id="formContacto">
 
                 <div class="mb-3">
                     <label class="form-label">Nombre</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" id="nombre">
+                    <small id="errorNombre" class="text-danger"></small>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Correo Electrónico</label>
-                    <input type="email" class="form-control">
+                    <input type="email" class="form-control" id="correo">
+                    <small id="errorCorreo" class="text-danger"></small>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Asunto</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" id="asunto">
+                    <small id="errorAsunto" class="text-danger"></small>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Mensaje</label>
-                    <textarea class="form-control" rows="4"></textarea>
+                    <textarea class="form-control" rows="4" id="mensaje"></textarea>
+                    <small id="errorMensaje" class="text-danger"></small>
                 </div>
 
                 <button type="submit" class="btn btn-primary">
@@ -210,7 +214,15 @@
                 </button>
 
             </form>
+        <hr>
 
+        <h4>Solicitudes registradas</h4>
+
+        <p>Total de solicitudes:
+        <span id="totalRegistros">0</span>
+        </p>
+
+        <div id="listaSolicitudes"></div>
         </div>
 
     </div>
@@ -243,10 +255,12 @@
 <footer>
     <hr>
     <p>© 2026 Sistema Financiero Digital. Todos los derechos reservados.</p>
-    <p>Desarrollado por Lisseth Troya Yepez - Desarrollo de Aplicaciones Web</p>
+    <p>Desarrollado por Lisseth Troya - Desarrollo de Aplicaciones Web</p>
 </footer>
  
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="script.js"></script>
 
 </body>
 </html>
