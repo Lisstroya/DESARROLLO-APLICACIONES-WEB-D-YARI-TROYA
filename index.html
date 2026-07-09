@@ -10,10 +10,12 @@
 
 <body>
 
+<!--Encabezado reutilizable (base.html) -->
 <header class="text-center">
     <h1>Sistema Financiero Digital</h1>
 </header>
 
+<!-- Menu de navegacion reutilizable (base.html) -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
 
@@ -43,6 +45,7 @@
     </div>
 </nav>
 
+<!-- Contenido principal reutilizable (base.html)-->
 <main>
 
     <section id="inicio" class="container text-center p-5">
@@ -233,20 +236,28 @@
             </form>
         <hr>
 
-        <h4>Solicitudes registradas</h4>
+      <!-- Contenido dinámico: esta sección mostrará los datos generados desde JavaScript -->
 
-        <p>Total de solicitudes:
+    <section id="contenidoDinamico">
+
+    <h4>Solicitudes registradas</h4>
+
+    <p>
+        Total de solicitudes:
         <span id="totalRegistros">0</span>
-        </p>
+    </p>
 
-        <div id="listaSolicitudes"></div>
-        </div>
+    <div id="listaSolicitudes"></div>
 
-    </div>
+</section>  
+
+</div>
+
+</div>
 
 </section>
 
-   <section class="container text-center my-5">
+   <section class="container text-center mt-5">
 
     <h2 class="mb-4">Video Informativo</h2>
 
@@ -269,6 +280,7 @@
     <p>Promoción: Cero comisiones en transferencias digitales</p>
 </aside>
 
+<!--Pie de pagina reutilizable (base.html)-->
 <footer>
     <hr>
     <p>© 2026 Sistema Financiero Digital. Todos los derechos reservados.</p>

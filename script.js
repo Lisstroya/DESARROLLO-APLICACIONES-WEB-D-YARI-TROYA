@@ -18,6 +18,8 @@ const totalRegistros = document.getElementById("totalRegistros");
 
 let contador = 0;
 
+let solicitudes = [];
+
 function validarNombre() {
 
     if (nombre.value.trim() === "") {
@@ -48,6 +50,9 @@ function validarNombre() {
 
 function validarCorreo() {
 
+    let formatoCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
     if (correo.value.trim() === "") {
 
         errorCorreo.textContent = "Ingrese su correo electrónico";
@@ -57,11 +62,22 @@ function validarCorreo() {
         return false;
     }
 
-        errorCorreo.textContent = "";
-        correo.classList.remove("is-invalid");
-        correo.classList.add("is-valid");
 
-        return true;
+    if (!formatoCorreo.test(correo.value)) {
+
+        errorCorreo.textContent = "Ingrese un correo válido";
+        correo.classList.add("is-invalid");
+        correo.classList.remove("is-valid");
+
+        return false;
+    }
+
+
+    errorCorreo.textContent = "";
+    correo.classList.remove("is-invalid");
+    correo.classList.add("is-valid");
+
+    return true;
 
 }
 
@@ -131,7 +147,52 @@ function validarMensaje() {
 
 }
 
+function mostrarSolicitudes() {
 
+    listaSolicitudes.innerHTML = "";
+
+    if (solicitudes.length === 0) {
+
+    listaSolicitudes.innerHTML =
+    '<div class="alert alert-info">No existen solicitudes registradas.</div>';
+
+    return;
+}
+
+    solicitudes.forEach(function (solicitud, indice) {
+
+        const tarjeta = document.createElement("div");
+
+        tarjeta.className = "card shadow-sm p-3 mb-3";
+
+        tarjeta.innerHTML = `
+            <p><strong>Nombre:</strong> ${solicitud.nombre}</p>
+            <p><strong>Correo:</strong> ${solicitud.correo}</p>
+            <p><strong>Tipo de Solicitud:</strong> ${solicitud.tipo}</p>
+            <p><strong>Asunto:</strong> ${solicitud.asunto}</p>
+            <p><strong>Mensaje:</strong> ${solicitud.mensaje}</p>
+            <button class="btn btn-danger btn-sm mt-3">
+                Eliminar
+            </button>
+        `;
+
+        tarjeta.querySelector("button").addEventListener("click", function () {
+
+            solicitudes.splice(indice, 1);
+
+            contador--;
+
+            totalRegistros.textContent = contador;
+
+            mostrarSolicitudes();
+
+        });
+
+        listaSolicitudes.appendChild(tarjeta);
+
+    });
+
+}
 formulario.addEventListener("submit", function (evento) {
 
     evento.preventDefault();
@@ -178,49 +239,19 @@ formulario.addEventListener("submit", function (evento) {
         return;
     }
 
-    const tarjeta = document.createElement("div");
+    const nuevaSolicitud = { 
 
-    tarjeta.className = "card shadow-sm p-3 mb-3";
+        nombre: nombre.value,
+        correo: correo.value,
+        tipo: tipoSolicitud.value,
+        asunto: asunto.value,
+        mensaje: mensaje.value
 
-    const textoNombre = document.createElement("p");
-    textoNombre.innerHTML = "<strong>Nombre:</strong> " + nombre.value;  
+    };
 
-    const textoCorreo = document.createElement("p");
-    textoCorreo.innerHTML = "<strong>Correo:</strong> " + correo.value;
+    solicitudes.push(nuevaSolicitud)
 
-    const textoTipo = document.createElement("p");
-    textoTipo.innerHTML = "<strong>Tipo de Solicitud:</strong> " + tipoSolicitud.value;
-
-    const textoAsunto = document.createElement("p");
-    textoAsunto.innerHTML = "<strong>Asunto:</strong> " + asunto.value;
-
-    const textoMensaje = document.createElement("p");
-    textoMensaje.innerHTML = "<strong>Mensaje:</strong> " + mensaje.value;
-
-    const botonEliminar = document.createElement("button");
-
-    botonEliminar.textContent = "Eliminar";
-
-    botonEliminar.className = "btn btn-danger btn-sm mt-3 d-block mx-auto";
-
-    botonEliminar.addEventListener("click", function () {
-
-        listaSolicitudes.removeChild(tarjeta);
-
-        contador--;
-
-        totalRegistros.textContent = contador;
-
-    });
-
-    tarjeta.appendChild(textoNombre);
-    tarjeta.appendChild(textoCorreo);
-    tarjeta.appendChild(textoTipo);
-    tarjeta.appendChild(textoAsunto);
-    tarjeta.appendChild(textoMensaje);
-    tarjeta.appendChild(botonEliminar);
-
-    listaSolicitudes.appendChild(tarjeta);
+    mostrarSolicitudes();
 
     contador++;
 
