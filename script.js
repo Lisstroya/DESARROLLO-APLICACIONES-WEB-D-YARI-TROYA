@@ -6,6 +6,7 @@ const tipoSolicitud = document.getElementById("tipoSolicitud");
 const asunto = document.getElementById("asunto");
 const mensaje = document.getElementById("mensaje");
 const mensajeFormulario = document.getElementById("mensajeFormulario");
+const spinnerCarga = document.getElementById("spinnerCarga");
 
 const errorNombre = document.getElementById("errorNombre");
 const errorCorreo = document.getElementById("errorCorreo");
@@ -239,7 +240,11 @@ formulario.addEventListener("submit", function (evento) {
         return;
     }
 
-    const nuevaSolicitud = { 
+    spinnerCarga.classList.remove("d-none");
+
+setTimeout(function () {
+
+    const nuevaSolicitud = {
 
         nombre: nombre.value,
         correo: correo.value,
@@ -249,7 +254,7 @@ formulario.addEventListener("submit", function (evento) {
 
     };
 
-    solicitudes.push(nuevaSolicitud)
+    solicitudes.push(nuevaSolicitud);
 
     mostrarSolicitudes();
 
@@ -260,6 +265,8 @@ formulario.addEventListener("submit", function (evento) {
     mensajeFormulario.innerHTML =
     '<div class="alert alert-success">Solicitud registrada correctamente.</div>';
 
+    spinnerCarga.classList.add("d-none");
+
     formulario.reset();
 
     nombre.classList.remove("is-valid");
@@ -267,6 +274,8 @@ formulario.addEventListener("submit", function (evento) {
     tipoSolicitud.classList.remove("is-valid");
     asunto.classList.remove("is-valid");
     mensaje.classList.remove("is-valid");
+
+}, 2000);
 
 });
 
@@ -282,3 +291,5 @@ asunto.addEventListener("blur", validarAsunto);
 
 mensaje.addEventListener("input", validarMensaje);
 mensaje.addEventListener("blur", validarMensaje)
+
+mostrarSolicitudes();
