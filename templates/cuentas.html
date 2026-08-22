@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+Cuentas - BanGYE Digital
+{% endblock %}
+
 {% block content %}
 
 <section class="container my-5">
@@ -12,7 +16,7 @@
 
         <p class="lead">
             Consulta la información de las cuentas bancarias administradas
-            mediante BanGYE Digital.
+            mediante {{ informacion.nombre }}.
         </p>
 
     </div>
@@ -29,15 +33,15 @@
                     <i class="bi bi-wallet2 fs-1 text-primary"></i>
 
                     <h5 class="mt-3">
-                        Cuentas activas
+                        Cuentas registradas
                     </h5>
 
                     <h3 class="fw-bold">
-                        24
+                        {{ cuentas|length }}
                     </h3>
 
                     <p class="text-muted mb-0">
-                        Cuentas actualmente habilitadas.
+                        Cuentas actualmente registradas.
                     </p>
 
                 </div>
@@ -60,7 +64,7 @@
                     </h5>
 
                     <h3 class="fw-bold">
-                        18
+                        {{ cuentas|length }}
                     </h3>
 
                     <p class="text-muted mb-0">
@@ -107,13 +111,9 @@
 
         <div class="card-body">
 
-            <div class="mb-4">
-
-                <h4 class="mb-0">
-                    Cuentas registradas
-                </h4>
-
-            </div>
+            <h4 class="mb-4">
+                Cuentas registradas
+            </h4>
 
 
             <div class="table-responsive">
@@ -127,6 +127,7 @@
                             <th>N.º de cuenta</th>
                             <th>Titular</th>
                             <th>Tipo</th>
+                            <th>Descripción</th>
                             <th>Fecha de apertura</th>
                             <th>Estado</th>
 
@@ -137,120 +138,51 @@
 
                     <tbody>
 
+                        {% for cuenta in cuentas %}
+
                         <tr>
 
                             <td>
-                                001-000123
+                                {{ cuenta.numero }}
                             </td>
 
                             <td>
-                                María González
+                                {{ cuenta.titular }}
                             </td>
 
                             <td>
-                                Cuenta de Ahorros
+                                {{ cuenta.tipo }}
                             </td>
 
                             <td>
-                                05/06/2026
+                                {{ cuenta.descripcion }}
+                            </td>
+
+                            <td>
+                                {{ cuenta.fecha }}
                             </td>
 
                             <td>
 
-                                <span class="badge bg-success">
-                                    Activa
-                                </span>
+                                {% if cuenta.estado == "Activa" %}
+
+                                    <span class="badge bg-success">
+                                        {{ cuenta.estado }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+                                        {{ cuenta.estado }}
+                                    </span>
+
+                                {% endif %}
 
                             </td>
 
                         </tr>
 
-
-                        <tr>
-
-                            <td>
-                                001-000456
-                            </td>
-
-                            <td>
-                                Carlos Mendoza
-                            </td>
-
-                            <td>
-                                Cuenta Corriente
-                            </td>
-
-                            <td>
-                                21/06/2026
-                            </td>
-
-                            <td>
-
-                                <span class="badge bg-success">
-                                    Activa
-                                </span>
-
-                            </td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                001-000789
-                            </td>
-
-                            <td>
-                                Andrea López
-                            </td>
-
-                            <td>
-                                Cuenta Digital
-                            </td>
-
-                            <td>
-                                10/07/2026
-                            </td>
-
-                            <td>
-
-                                <span class="badge bg-warning text-dark">
-                                    Pendiente
-                                </span>
-
-                            </td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>
-                                001-000812
-                            </td>
-
-                            <td>
-                                José Ramírez
-                            </td>
-
-                            <td>
-                                Cuenta de Ahorros
-                            </td>
-
-                            <td>
-                                28/07/2026
-                            </td>
-
-                            <td>
-
-                                <span class="badge bg-success">
-                                    Activa
-                                </span>
-
-                            </td>
-
-                        </tr>
+                        {% endfor %}
 
                     </tbody>
 

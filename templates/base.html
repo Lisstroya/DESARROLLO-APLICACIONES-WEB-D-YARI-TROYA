@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <meta charset="UTF-8">
-    <title>BanGYE Digital</title>
+
+    <title>
+        {% block title %}
+        BanGYE Digital
+        {% endblock %}
+    </title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
@@ -12,105 +19,26 @@
 
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 </head>
 
 <body>
 
-<!-- Encabezado y menú principal -->
-<nav class="navbar navbar-expand-lg navbar-dark">
+    {% include "components/navbar.html" %}
 
-    <div class="container">
+    <main>
 
-        <a class="navbar-brand d-flex align-items-center" href="{{ url_for('inicio') }}">
+        {% block content %}
+        {% endblock %}
 
-            <span class="logo-bangye">
-                <i class="bi bi-bank2"></i>
-            </span>
+    </main>
 
-            <span class="nombre-banco">
-                BanGYE Digital
-            </span>
+    {% include "components/footer.html" %}
 
-        </a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#menu"
-                aria-controls="menu"
-                aria-expanded="false"
-                aria-label="Abrir menú">
-
-            <span class="navbar-toggler-icon"></span>
-
-        </button>
-
-        <div class="collapse navbar-collapse" id="menu">
-
-            <ul class="navbar-nav ms-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('inicio') }}">
-                        Inicio
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('solicitudes') }}">
-                        Solicitudes
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('cuentas') }}">
-                        Cuentas
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('transferencias') }}">
-                        Transferencias
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('pagos') }}">
-                        Pagos
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-    </div>
-
-</nav>
-
-
-<main>
-
-    {% block content %}
-    {% endblock %}
-
-</main>
-
-
-<!-- Pie de página -->
-<footer>
-
-    <hr>
-
-    <p>© 2026 BanGYE Digital. Todos los derechos reservados.</p>
-
-    <p>Desarrollado por Lisseth Troya - Desarrollo de Aplicaciones Web</p>
-
-</footer>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
+
 </html>

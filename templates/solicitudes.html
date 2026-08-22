@@ -1,16 +1,24 @@
 {% extends "base.html" %}
 
+{% block title %}
+Solicitudes - BanGYE Digital
+{% endblock %}
+
 {% block content %}
 
 <section class="container my-5">
 
     <div class="text-center mb-5">
-        <h2 class="fw-bold">Gestión de Solicitudes</h2>
+
+        <h2 class="fw-bold">
+            Gestión de Solicitudes
+        </h2>
 
         <p class="lead">
             Consulta y seguimiento de las solicitudes realizadas por los usuarios
-            de BanGYE Digital.
+            de {{ informacion.nombre }}.
         </p>
+
     </div>
 
 
@@ -18,14 +26,9 @@
 
         <div class="card-body">
 
-            <div class="d-flex justify-content-between align-items-center mb-4">
-
-                <h4 class="mb-0">
-                    Solicitudes registradas
-                </h4>
-
-
-            </div>
+            <h4 class="mb-4">
+                Solicitudes registradas
+            </h4>
 
 
             <div class="table-responsive">
@@ -38,49 +41,61 @@
                             <th>N.º</th>
                             <th>Cliente</th>
                             <th>Tipo de solicitud</th>
+                            <th>Asunto</th>
                             <th>Fecha</th>
                             <th>Estado</th>
                         </tr>
 
                     </thead>
 
+
                     <tbody>
 
-                        <tr>
-                            <td>001</td>
-                            <td>María González</td>
-                            <td>Apertura de cuenta</td>
-                            <td>12/08/2026</td>
-                            <td>
-                                <span class="badge bg-warning text-dark">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
+                        {% for solicitud in solicitudes %}
 
                         <tr>
-                            <td>002</td>
-                            <td>Carlos Mendoza</td>
-                            <td>Consulta de saldo</td>
-                            <td>13/08/2026</td>
+
                             <td>
-                                <span class="badge bg-success">
-                                    Atendida
-                                </span>
+                                {{ solicitud.id }}
                             </td>
+
+                            <td>
+                                {{ solicitud.cliente }}
+                            </td>
+
+                            <td>
+                                {{ solicitud.tipo }}
+                            </td>
+
+                            <td>
+                                {{ solicitud.asunto }}
+                            </td>
+
+                            <td>
+                                {{ solicitud.fecha }}
+                            </td>
+
+                            <td>
+
+                                {% if solicitud.estado == "Atendida" %}
+
+                                    <span class="badge bg-success">
+                                        {{ solicitud.estado }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+                                        {{ solicitud.estado }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
                         </tr>
 
-                        <tr>
-                            <td>003</td>
-                            <td>Andrea López</td>
-                            <td>Transferencia</td>
-                            <td>14/08/2026</td>
-                            <td>
-                                <span class="badge bg-warning text-dark">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
+                        {% endfor %}
 
                     </tbody>
 
