@@ -1,9 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
+from forms.solicitud_form import SolicitudForm
+from forms.cuenta_form import CuentaForm
+from forms.transferencia_form import TransferenciaForm
+from forms.pago_form import PagoForm
 
 app = Flask(__name__)
 
+app.config["SECRET_KEY"] = "bangye-clave-segura-2026"
 
-# Información general del sistema
 informacion_sistema = {
     "nombre": "BanGYE Digital",
     "descripcion": "Sistema web de gestión de solicitudes y servicios financieros",
@@ -12,7 +16,6 @@ informacion_sistema = {
 }
 
 
-# Servicios disponibles en el sistema
 servicios = [
     {
         "nombre": "Cuentas Bancarias",
@@ -33,7 +36,7 @@ servicios = [
 ]
 
 
-# Solicitudes de ejemplo
+
 solicitudes_registradas = [
     {
         "id": "001",
@@ -62,7 +65,7 @@ solicitudes_registradas = [
 ]
 
 
-# Información de cuentas
+
 cuentas_bancarias = [
     {
         "numero": "001-000123",
@@ -83,8 +86,8 @@ cuentas_bancarias = [
     {
         "numero": "001-000789",
         "titular": "Andrea López",
-        "tipo": "Cuenta Digital",
-        "descripcion": "Cuenta para realizar operaciones mediante canales digitales.",
+        "tipo": "Cuenta Corriente",
+        "descripcion": "Cuenta para gestionar operaciones y movimientos financieros.",
         "fecha": "10/07/2026",
         "estado": "Pendiente"
     },
@@ -99,7 +102,7 @@ cuentas_bancarias = [
 ]
 
 
-# Transferencias de ejemplo
+
 transferencias_realizadas = [
     {
         "numero": "TRX-0001",
@@ -140,7 +143,7 @@ transferencias_realizadas = [
 ]
 
 
-# Pagos de ejemplo
+
 pagos_disponibles = [
     {
         "numero": "PAG-0001",
@@ -186,39 +189,81 @@ def inicio():
     )
 
 
-@app.route("/solicitudes")
+@app.route("/solicitudes", methods=["GET", "POST"])
 def solicitudes():
+
+    form = SolicitudForm()
+
+    if form.validate_on_submit():
+
+        nueva_solicitud = {
+            "id": str(len(solicitudes_registradas) + 1).zfill(3),
+            "cliente": form.nombre.data,
+            "tipo": form.tipo_solicitud.data,
+            "asunto": form.asunto.data,
+            "fecha": "28/08/2026",
+            "estado": "Pendiente"
+        }
+
+        solicitudes_registradas.append(nueva_solicitud)
+
+        return redirect(url_for("solicitudes"))
+
     return render_template(
         "solicitudes.html",
         solicitudes=solicitudes_registradas,
-        informacion=informacion_sistema
+        informacion=informacion_sistema,
+        form=form
     )
 
 
-@app.route("/cuentas")
+@app.route("/cuentas", methods=["GET", "POST"])
 def cuentas():
+
+    form = CuentaForm()
+
+    if form.validate_on_submit():
+
+        return redirect(url_for("cuentas"))
+
     return render_template(
         "cuentas.html",
         cuentas=cuentas_bancarias,
-        informacion=informacion_sistema
+        informacion=informacion_sistema,
+        form=form
     )
 
 
-@app.route("/transferencias")
+@app.route("/transferencias", methods=["GET", "POST"])
 def transferencias():
+
+    form = TransferenciaForm()
+
+    if form.validate_on_submit():
+
+        return redirect(url_for("transferencias"))
+
     return render_template(
         "transferencias.html",
         transferencias=transferencias_realizadas,
-        informacion=informacion_sistema
+        informacion=informacion_sistema,
+        form=form
     )
 
-
-@app.route("/pagos")
+@app.route("/pagos", methods=["GET", "POST"])
 def pagos():
+
+    form = PagoForm()
+
+    if form.validate_on_submit():
+
+        return redirect(url_for("pagos"))
+
     return render_template(
         "pagos.html",
         pagos=pagos_disponibles,
-        informacion=informacion_sistema
+        informacion=informacion_sistema,
+        form=form
     )
 
 
